@@ -1,6 +1,6 @@
 // Login.js
 import React, { useState } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import LoginImage from './Components/LoginImage';
 import LoginForm from './Components/LoginForm';
 
@@ -21,10 +21,14 @@ function Login() {
 
   if (loggedIn) {
     return (
-      <div>
-        <h1>Welcome, {username}!</h1>
-        <button onClick={handleLogout}>Logout</button>
+        // <Grid justifyContent="center" alignItems="center" style={{ height: '100vh', width:'100vh' }}>
+        <div>
+        <h1 alignItems>Welcome, {username}!</h1>
+        <Button variant="contained" color="primary" halfWidth onClick={handleLogout}>
+        Logout
+      </Button>
       </div>
+    //   </Grid>
     );
   } else {
     return (

@@ -1,6 +1,6 @@
 // LoginForm.js
 import React, { useState } from 'react';
-import { Grid, Typography, TextField, Button } from '@mui/material';
+import { Grid, Typography, TextField, Button, Box } from '@mui/material';
 
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -26,7 +26,8 @@ function LoginForm({ onLogin }) {
   };
 
   return (
-    <Grid item xs={12} sm={6}>
+    <Grid item xs={12} sm={8} >
+      <Box sx={{ width: '60%', margin: '0 auto' }}>
       <Typography variant="h5" gutterBottom>
         Login
       </Typography>
@@ -50,6 +51,7 @@ function LoginForm({ onLogin }) {
       <Button variant="contained" color="primary" fullWidth onClick={handleLogin} disabled={!formValid}>
         Login
       </Button>
+      </Box>
     </Grid>
   );
 }
