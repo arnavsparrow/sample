@@ -2,17 +2,15 @@
 import React, { useState } from "react";
 import { Grid, Typography, TextField, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
 
 function LoginForm() {
   const navigate = useNavigate();
   const [formValid, setFormValid] = useState(false);
-  const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    login(username);
+    localStorage.setItem("username", username);
     navigate("/home");
   };
 
