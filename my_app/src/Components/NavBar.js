@@ -17,9 +17,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link,Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -69,14 +67,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function NavBar() {
-  const navigate = useNavigate();
-  // Retrieve username from local storage
-  const username = localStorage.getItem("username");
-  const handleLogout = () => {
-    // Perform logout logic here
-    localStorage.removeItem("username");
-    navigate("/login");
-  };
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -89,6 +79,7 @@ export default function NavBar() {
   };
 
   return (
+    <>
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -103,13 +94,13 @@ export default function NavBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            React Application Arnav
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
         sx={{
-          width: drawerWidth,
+h: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
@@ -132,6 +123,7 @@ export default function NavBar() {
         <Divider />
         <List>
           {[
+            { text: "Home", path: "/home" },
             { text: "Form 1", path: "/form1" },
             { text: "Form 2", path: "/form2" },
             { text: "Form 3", path: "/form3" },
@@ -150,12 +142,13 @@ export default function NavBar() {
         </List>
       </Drawer>
       <Main open={open}>
-        <DrawerHeader />
-        <h1>Welcome! {username}!</h1>
-        <Button variant="contained" color="primary" onClick={handleLogout}>
-          Logout
-        </Button>
+        {/* <DrawerHeader /> */}
+        
       </Main>
     </Box>
+    <div>
+    <Outlet />
+  </div>
+  </>
   );
 }
