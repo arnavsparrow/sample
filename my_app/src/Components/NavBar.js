@@ -142,7 +142,7 @@ h: drawerWidth,
         </List>
       </Drawer>
       <Main open={open}>
-        {/* <DrawerHeader /> */}
+        <DrawerHeader />
         
       </Main>
     </Box>

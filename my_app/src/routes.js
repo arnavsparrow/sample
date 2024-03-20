@@ -16,7 +16,7 @@ export default function AppRoutes() {
       children: [
         {
           path: "/", // Set default landing page
-          element: <Navigate to="/home" replace />, // Redirect to home page
+          element: <Navigate to="/login" replace />, // Redirect to home page
         },
         {
           path: "/home", // Define home route
