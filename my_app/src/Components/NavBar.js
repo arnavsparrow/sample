@@ -17,7 +17,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Link,Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -78,77 +80,103 @@ export default function NavBar() {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Perform logout logic here
+    localStorage.removeItem("username");
+    navigate("/login");
+  };
+
   return (
     <>
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            React Application Arnav
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-h: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {[
-            { text: "Home", path: "/home" },
-            { text: "Form 1", path: "/form1" },
-            { text: "Form 2", path: "/form2" },
-            { text: "Form 3", path: "/form3" },
-          ].map((item, index) => (
-            <ListItem key={item.text} disablePadding>
-              <Link to={item.path} style={{ textDecoration: "none", color: "inherit" }}>
-                <ListItem button>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              </Link>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        
-      </Main>
-    </Box>
-    <div>
-    <Outlet />
-  </div>
-  </>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              React Application Arnav
+            </Typography>
+
+            <Button
+              variant="contained"
+              onClick={handleLogout} size="small"
+              sx={{
+                bgcolor: "white",
+                color: "black",
+                marginLeft: "auto",
+                "&:hover": {
+                  bgcolor: "black",
+                  color: "background.default",
+                },
+              }}
+            >
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
+            h: drawerWidth,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {[
+              { text: "Home", path: "/home" },
+              { text: "Form 1", path: "/form1" },
+              { text: "Form 2", path: "/form2" },
+              { text: "Form 3", path: "/form3" },
+              { text: "View Data", path: "/view" },
+            ].map((item, index) => (
+              <ListItem key={item.text} disablePadding>
+                <Link
+                  to={item.path}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <ListItem button>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItem>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
+        </Main>
+      </Box>
+      <div>
+        <Outlet />
+      </div>
+    </>
   );
 }
